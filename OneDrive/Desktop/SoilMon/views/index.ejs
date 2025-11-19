@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Monitoring Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Soil Monitoring Dashboard</h1>
+            <p class="subtitle">Real-time Soil Quality Analysis</p>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Soil Quality Status Card -->
+            <div class="card main-card">
+                <div class="card-body">
+                    <div class="soil-image-container">
+                        <img src="/images/<%= soilImage %>" alt="Soil Quality" id="soilImage" class="soil-image">
+                    </div>
+                    <div class="soil-status">
+                        <div class="card-header">
+                            <h2>Soil Quality Status</h2>
+                        </div>
+                        <h3 id="soilStatus" class="status-<%= soilQuality %>"><%= soilMessage %></h3>
+                        <div class="soil-percent-display">
+                            <span class="percent-value" id="soilPercent"><%= soilPercent !== null ? soilPercent : '--' %></span>
+                            <span class="percent-unit">%</span>
+                        </div>
+                        <div class="soil-raw">
+                            Raw Value: <span id="soilRaw"><%= soilRaw !== null ? soilRaw : '--' %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temperature Card -->
+            <div class="card sensor-card">
+                <div class="card-icon">🌡️</div>
+                <div class="card-content">
+                    <h3>Temperature</h3>
+                    <div class="sensor-value">
+                        <span id="temperature"><%= temperature !== null && temperature !== undefined ? temperature.toFixed(1) : '--' %></span>
+                        <span class="unit">°C</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Humidity Card -->
+            <div class="card sensor-card">
+                <div class="card-icon">💧</div>
+                <div class="card-content">
+                    <h3>Humidity</h3>
+                    <div class="sensor-value">
+                        <span id="humidity"><%= humidity !== null && humidity !== undefined ? humidity.toFixed(1) : '--' %></span>
+                        <span class="unit">%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soil Moisture Card -->
+            <div class="card sensor-card">
+                <div class="card-icon">🌿</div>
+                <div class="card-content">
+                    <h3>Soil Moisture</h3>
+                    <div class="sensor-value">
+                        <span id="soilMoisture"><%= soilPercent !== null ? soilPercent : '--' %></span>
+                        <span class="unit">%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="soilProgress" style="width: <%= soilPercent !== null && soilPercent !== undefined ? soilPercent : 0 %>%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="connection-status">
+            <span id="connectionStatus" class="status-indicator">🟢 Connected</span>
+            <span class="last-update">Last Update: <span id="lastUpdate">--</span></span>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header alert-header">
+                <h2>⚠️ Soil Quality Alert</h2>
+                <button class="close-btn" onclick="closeAlert()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="/images/cry.png" alt="Alert" class="alert-image">
+                <p id="alertMessage" class="alert-message"></p>
+                <p class="alert-details">Please check your soil moisture levels and water your plants if needed.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeAlert()" class="btn-primary">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
+
